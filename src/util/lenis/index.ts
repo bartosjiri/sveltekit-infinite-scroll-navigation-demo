@@ -1,0 +1,1 @@
+export { initLenisInstance } from './lenisInstanceHandler';
