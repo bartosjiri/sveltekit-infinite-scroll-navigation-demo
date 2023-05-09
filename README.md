@@ -4,7 +4,7 @@ A demo of infinite scroll navigation menu in a [SvelteKit](https://kit.svelte.de
 
 ## Preview
 
-Try it yourself `@TODO`!
+Try it yourself [here](https://sveltekit-infinite-scroll-navigation-demo.vercel.app/)!
 
 ![Preview animation](./static/preview.gif)
 
@@ -19,4 +19,4 @@ Try it yourself `@TODO`!
 
 ## Guide
 
-`@TODO`
+- [Twitter thread](https://twitter.com/bartosjiri_/status/1655841489757384706)
