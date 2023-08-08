@@ -6,20 +6,14 @@
 	import { isOpen } from './navigation.store';
 
 	let containerRef: HTMLElement;
-	let listRef: HTMLElement;
+	let listRefs: HTMLElement[] = [];
 	let lenisInstance: any;
 	let isStatic = false;
 
-	const cloneList = () => {
-		const cloneEl = listRef.cloneNode(true) as HTMLElement;
-		cloneEl.classList.add('clone');
-		containerRef.appendChild(cloneEl);
-	};
-
 	const setupNavigation = () => {
-		if (typeof window === 'undefined' || !lenisInstance || !listRef || !$isOpen) return;
+		if (typeof window === 'undefined' || !lenisInstance || !listRefs.length || !$isOpen) return;
 
-		if (listRef.clientHeight < window.innerHeight) {
+		if (listRefs[0].clientHeight < window.innerHeight) {
 			isStatic = true;
 			if (!$lenisInstance.isStopped) $lenisInstance.stop();
 		} else {
@@ -30,12 +24,10 @@
 	};
 
 	onMount(() => {
-		if (!containerRef || !listRef) return;
-
-		cloneList();
+		if (!containerRef || !listRefs.length) return;
 		lenisInstance = initLenisInstance({
 			wrapper: containerRef,
-			content: listRef,
+			content: listRefs[0],
 			infinite: true
 		});
 	});
@@ -58,11 +50,13 @@
 	class:is-open={$isOpen}
 	class:is-static={isStatic}
 >
-	<ul bind:this={listRef}>
-		{#each { length: 5 } as _, i}
-			<li>Page {i + 1}</li>
-		{/each}
-	</ul>
+	{#each Array.from({ length: 2 }) as _, listIndex}
+		<ul bind:this={listRefs[listIndex]} class:clone={listIndex === 1} >
+			{#each { length: 5 } as _, itemIndex}
+				<li>Page {itemIndex + 1}</li>
+			{/each}
+		</ul>
+	{/each}
 </nav>
 
 <style lang="scss">
